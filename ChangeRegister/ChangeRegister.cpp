@@ -42,12 +42,6 @@ int main() {
 
     // Перевіряємо, чи отримано текст
     if (pszText != NULL) {
-        // Виводимо отриманий текст на екран
-        std::wcout << L"Текст з буфера обміну:" << std::endl;
-        std::wcout << pszText << std::endl;
-
-       
-
         // Переводимо текст у нижній регістр
         std::wstring lowerCaseText = toLowerCase(pszText);
 
@@ -95,7 +89,3 @@ int main() {
 
     return 0;
 }
-
-
-
-

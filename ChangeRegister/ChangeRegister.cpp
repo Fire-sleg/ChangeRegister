@@ -9,13 +9,35 @@
 #include <algorithm>
 #include <locale>
 #include <codecvt>
+#include <cwctype>
 
 using namespace std;
 
 // Функція для переведення тексту в нижній регістр
 std::wstring toLowerCase(const std::wstring& input) {
     std::wstring result = input;
-    std::transform(result.begin(), result.end(), result.begin(), ::towlower);
+    //std::transform(result.begin(), result.end(), result.begin(), ::towlower);
+    // Початкова літера першого слова у реченні повинна бути великою
+    bool capitalizeNext = true;
+
+    for (wchar_t& c : result) {
+        if (std::iswalpha(c)) {
+            // Літера в слові
+            if (capitalizeNext) {
+                // Перша літера слова
+                c = std::towupper(c);
+                capitalizeNext = false; // Наступна літера не потрібно великою
+            }
+            else {
+                // Решта літер слова
+                c = std::towlower(c);
+            }
+        }
+        else if (c == '.' || c == '!' || c == '?') {
+            // Кінець речення, наступна літера має бути великою
+            capitalizeNext = true;
+        }
+    }
     return result;
 }
 
